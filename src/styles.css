@@ -1,0 +1,50 @@
+/* Establece un mínimo de altura para todo el contenido */
+html,
+body {
+    height: 100%;
+}
+
+/* Utiliza flexbox para la disposición vertical */
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estira el contenido principal para llenar el espacio disponible */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* You can add global styles to this file, and also import other style files */
+.ng-valid:not(form).ng-touched {
+    border-left: 5px solid #42A948;
+}
+
+.ng-invalid:not(form).ng-touched {
+    border-left: 5px solid #a94442;
+}
+
+/* Estira el contenido principal para llenar el espacio disponible */
+router-outlet,
+main {
+    flex-grow: 1;
+}
+
+/* Estiliza el footer */
+app-footer {
+    background-color: blueviolet;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* Asegura que el footer esté siempre en la parte inferior de la página */
+app-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
