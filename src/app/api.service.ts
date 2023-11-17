@@ -38,7 +38,7 @@ export class ApiService {
     return this.http.post(url, data, { headers });
   }
 
-    // Cargar stakeholders
+  // Cargar stakeholders
   loadStakeholders(): Observable<Stakeholder[]> {
     const url = `${this.apiUrl}/api/loadStakeholders.php`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -53,15 +53,25 @@ export class ApiService {
 
     return this.http.get<Responsable[]>(url, { headers });
   }
-
   // Registrar proyecto
   registrarProyecto(proyecto: any): Observable<any> {
     // Extraer solo el idResponsable del objeto responsable
 
     const url = `${this.apiUrl}/api/registrarProyecto.php`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  
+
     return this.http.post(url, proyecto, { headers });
   }
+
+  //registrarDocumentos
+  registrarDocumento(folio: string, documento: File): Observable<any> {
+    const url = `${this.apiUrl}/api/registrarDocumento.php`;
   
+    const formData = new FormData();
+    formData.append('folio', folio);
+    formData.append('documento', documento);
+  
+    return this.http.post(url, formData);
+  }
+
 }

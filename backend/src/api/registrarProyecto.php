@@ -1,4 +1,5 @@
 <?php
+
 // Incluir el archivo de conexión a la base de datos
 include 'database.php';
 
@@ -19,6 +20,7 @@ $costo = $request->costo;
 $consulta = "INSERT INTO Proyectos (folio, nombreProyecto, nombreCorto, descripcion, fechaInicio, fechaTermino, idResponsable, estadoProyecto, costo)
             VALUES ('$folio', '$nombreProyecto', '$nombreCorto', '$descripcion', '$fechaInicio', '$fechaTermino', $idResponsable, 'Activo', $costo)";
 
+
 if (mysqli_query($con, $consulta)) {
   echo json_encode(['success' => true]);
 } else {
@@ -26,4 +28,6 @@ if (mysqli_query($con, $consulta)) {
 }
 
 $con->close();
+
+
 ?>

@@ -48,9 +48,14 @@
     </div>
 
     <!-- Adjuntar Documentos (solo PDF) -->
+    <!-- En algún lugar de tu formulario -->
     <div class="form-group">
-      <label for="documentos">Adjuntar Documentos (solo PDF):</label>
-      <input type="file" id="documentos" class="form-control-file" accept=".pdf" multiple>
+      <label for="file">Adjuntar PDF:</label>
+      <input type="file" id="file" formControlName="fileSource" (change)="onFileChange($event)" />
+      <div *ngIf="documentoForm.get('fileSource').hasError('required') && documentoForm.get('fileSource').touched"
+        class="text-danger">
+        *Sólo puede subir un archivo, si desea añadir más archivos lo podrá hacer más adelante
+      </div>
     </div>
 
     <button type="submit" class="btn btn-primary">Registrar Proyecto</button>
