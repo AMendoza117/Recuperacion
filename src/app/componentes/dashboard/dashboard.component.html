@@ -11,26 +11,21 @@
                             <div class="col-md-3">
                                 <div class="project-box">
                                     <p>Proyectos</p>
-                                    <h2>27</h2>
-                                    <button class="btn btn-primary" (click)="redirectToRegistrarProyecto()">+ Crear</button>
+                                    <h2>{{ numProyectos }}</h2>
+                                    <button class="btn btn-primary" (click)="redirectToRegistrarProyecto()">+
+                                        Crear</button>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="status-box">
                                     <p>Activos</p>
-                                    <h2>10</h2>
+                                    <h2>{{ numProyectosActivos }}</h2>
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="status-box">
                                     <p>Completados</p>
-                                    <h2>10</h2>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="status-box">
-                                    <p>Pendientes</p>
-                                    <h2>7</h2>
+                                    <h2>{{ numProyectosCompletados }}</h2>
                                 </div>
                             </div>
                         </div>
@@ -46,20 +41,41 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="project-list">
-                                    <p>Proyecto 1</p>
+                            <div class="col-md-4" *ngFor="let proyecto of proyectos">
+                                <div class="project-list" (click)="redirectToProyectoDetalle(proyecto)">
+                                    <p>{{ proyecto.nombreCorto }}</p>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="project-list">
-                                    <p>Proyecto 2</p>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="project-list">
-                                    <p>Proyecto 3</p>
-                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Lideres</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Líder</th>
+                                            <th>Número de Proyectos</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let lider of lideresConProyectos">
+                                            <td>{{ lider.nombreLider }}</td>
+                                            <td>{{ lider.numeroProyectos }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

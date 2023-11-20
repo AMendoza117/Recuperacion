@@ -9,6 +9,7 @@ import { FooterComponent } from './componentes/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './componentes/dashboard/dashboard.component';
 import { RegistrarProyectoComponent } from './componentes/registrar-proyecto/registrar-proyecto.component';
+import { VerProyectoComponent } from './componentes/ver-proyecto/ver-proyecto.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { RegistrarProyectoComponent } from './componentes/registrar-proyecto/reg
     FooterComponent,
     DashboardComponent,
     RegistrarProyectoComponent,
+    VerProyectoComponent,
     
   ],
   imports: [

@@ -8,7 +8,7 @@ import { ApiService, Responsable } from './../../api.service';
   styleUrls: ['./registrar-proyecto.component.css']
 })
 export class RegistrarProyectoComponent implements OnInit {
-
+  lastConsecutivo: string;
   proyectoForm: FormGroup;
   responsables: Responsable[];
   documentoForm = new FormGroup({
@@ -29,6 +29,7 @@ export class RegistrarProyectoComponent implements OnInit {
     });
 
     this.loadResponsables();
+    this.getLastConsecutivo();
   }
 
   loadResponsables() {
@@ -52,48 +53,33 @@ export class RegistrarProyectoComponent implements OnInit {
     }
   }
 
+  getLastConsecutivo() {
+    this.apiService.getLastConsecutivo().subscribe(
+      (response: any) => {
+        this.lastConsecutivo = response.lastConsecutivo;
+        console.log("Esto no es un simulacro",this.lastConsecutivo);
+      },
+      (error) => {
+        console.error('Error al obtener el último consecutivo:', error);
+      }
+    );
+  }
+
   generateFolio(nombreCorto: string): string {
     const currentDate = new Date();
     const year = currentDate.getFullYear().toString().slice(-2);
     const month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
-    const lastConsecutivo = '001'; // Cambiar esto por la lógica real para obtener el último consecutivo
-    return `${year}${month}-${nombreCorto}-${lastConsecutivo}`;
+    const nextNumber = this.lastConsecutivo + 1;
+    console.log('Numero lastConsecutive:',this.lastConsecutivo);
+    console.log('Numero sumado:',nextNumber);
+    const formattedNextNumber = nextNumber.toString().padStart(3, '0');
+    console.log('Numero formateado:',formattedNextNumber);
+    return `${year}${month}-${nombreCorto}-${formattedNextNumber}`;
   }
-
-  /*
-    onSubmit() {
-      if (this.proyectoForm.valid) {
-        const nombreCorto = this.proyectoForm.value.nombreCorto;
-        const folio = this.generateFolio(nombreCorto);
   
-        const proyectoData = {
-          folio,
-          ...this.proyectoForm.value
-  
-        };
-  
-        console.log('Datos a enviar:', proyectoData);
-        console.log('Folio', folio);
-  
-        this.apiService.registrarProyecto(proyectoData).subscribe(
-          (response) => {
-            if (response && response.success) {
-              console.log('Proyecto registrado con éxito.');
-            } else {
-              console.error('Error al registrar proyecto.');
-            }
-          },
-          (error) => {
-            console.error('Error en la solicitud: ', error);
-          }
-        );
-      }
-    }
-    */
-  // registrar-proyecto.component.ts
 
   onSubmit() {
-    if (this.proyectoForm.valid && this.documentoForm.valid) {
+    if (this.proyectoForm.valid) {
       const nombreCorto = this.proyectoForm.value.nombreCorto;
       const folio = this.generateFolio(nombreCorto);
 
@@ -102,7 +88,55 @@ export class RegistrarProyectoComponent implements OnInit {
         ...this.proyectoForm.value
       };
 
-      const documento = this.documentoForm.get('fileSource').value;
+      console.log('Datos a enviar (Proyecto):', proyectoData);
+      console.log('Folio', folio);
+
+      this.apiService.registrarProyecto(proyectoData).subscribe(
+        (response) => {
+          if (response && response.success) {
+            console.log('Proyecto registrado con éxito.');
+
+            // Luego de registrar el proyecto, registrar el documento si hay uno adjunto
+            const documento = this.documentoForm.get('fileSource').value;
+
+            if (documento) {
+              this.apiService.registrarDocumento(folio, documento).subscribe(
+                (documentoResponse) => {
+                  if (documentoResponse && documentoResponse.success) {
+                    console.log('Documento registrado con éxito.');
+                  } else {
+                    console.error('Error al registrar documento.');
+                  }
+                },
+                (documentoError) => {
+                  console.error('Error en la solicitud para registrar documento: ', documentoError);
+                }
+              );
+            }
+
+            this.documentoForm.reset(); // Esto limpiará el formulario del documento
+            this.proyectoForm.reset();  // Limpiar el formulario del proyecto
+            console.log('Formularios limpiados.');
+            window.location.reload();
+          } else {
+            console.error('Error al registrar proyecto.');
+          }
+        },
+        (error) => {
+          console.error('Error en la solicitud para registrar proyecto: ', error);
+        }
+      );
+    } else {
+      // Si el formulario de proyecto no es válido, registrar solo el proyecto sin adjuntar documento
+      console.log('Formulario de proyecto no válido. Registrando solo el proyecto.');
+
+      const nombreCorto = this.proyectoForm.value.nombreCorto;
+      const folio = this.generateFolio(nombreCorto);
+
+      const proyectoData = {
+        folio,
+        ...this.proyectoForm.value
+      };
 
       console.log('Datos a enviar (Proyecto):', proyectoData);
       console.log('Folio', folio);
@@ -111,22 +145,9 @@ export class RegistrarProyectoComponent implements OnInit {
         (response) => {
           if (response && response.success) {
             console.log('Proyecto registrado con éxito.');
-            // Luego de registrar el proyecto, registrar el documento
-
-            this.apiService.registrarDocumento(folio, documento).subscribe(
-              (documentoResponse) => {
-                if (documentoResponse && documentoResponse.success) {
-                  console.log('Documento registrado con éxito.');
-                  this.documentoForm.reset(); // Esto limpiará el formulario del documento
-                } else {
-                  console.error('Error al registrar documento.');
-                }
-              },
-              (documentoError) => {
-                console.error('Error en la solicitud para registrar documento: ', documentoError);
-              }
-            );
-
+            this.proyectoForm.reset();  // Limpiar el formulario del proyecto
+            console.log('Formulario de proyecto limpiado.');
+            window.location.reload();
           } else {
             console.error('Error al registrar proyecto.');
           }
@@ -137,5 +158,7 @@ export class RegistrarProyectoComponent implements OnInit {
       );
     }
   }
+
+
 
 }
