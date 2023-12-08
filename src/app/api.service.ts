@@ -1,70 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-// responsable.model.ts
-
-export interface Responsable {
-  idLiderProyecto: number;
-  nombre: string;
-}
-
-export interface LiderConProyectos {
-  idLider: number;
-  nombreLider: string;
-  numeroProyectos: number;
-}
-
-export interface Proyecto {
-  idProyecto: number;
-  nombreCorto: string;
-  estadoProyecto: string;
-}
-
-
-export interface VerProyecto {
-  idProyecto: number;
-  folio: string;
-  nombreProyecto: string;
-  nombreCorto: string;
-  descripcion: string;
-  fechaInicio: string;
-  fechaTermino: string;
-  idResponsable: number;
-  estadoProyecto: string;
-  costo: number;
-  idLiderProyecto: number;
-
-  // Nuevos campos
-  nombreLiderProyecto?: string;
-  pdfs?: string[]; // Rutas de los PDF
-  stakeholders?: Stakeholder[];
-  pagosParciales?: PagosParciales[];
-}
-
-export interface Stakeholder {
-  id: number;
-  nombreCompleto: string;
-  correoElectronico: string;
-  telefono: string;
-  idProyecto: number;
-}
-
-export interface PagosParciales {
-  idPagoParcial: number;
-  idProyecto: number;
-  fechaPago: string;
-  monto: number;
-}
-
+import { tap } from 'rxjs/operators';
+import { ObservableService } from './services/observable.service';
+import { Responsable } from './Models/responsable.model';
+import { LiderConProyectos } from './Models/liderConProyectos.model';
+import { Proyecto } from './Models/Proyecto.model';
+import { Lider } from './Models/Lider.model';
+import { VerProyecto } from './Models/VerProyecto.model';
+import { Stakeholder } from './Models/Stakeholder.model';
+import { PagosParciales } from './Models/PagosParciales.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
-  private apiUrl = 'http://localhost:8080'; // Reemplaza con la URL de tu backend
+  private apiUrl = 'http://localhost:8080';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private observableService: ObservableService) { }
 
   // Método para realizar una solicitud GET a una API en el backend.
   public get(endpoint: string): Observable<any> {
@@ -96,12 +49,11 @@ export class ApiService {
   }
   // Registrar proyecto
   registrarProyecto(proyecto: any): Observable<any> {
-    // Extraer solo el idResponsable del objeto responsable
-
     const url = `${this.apiUrl}/api/registrarProyecto.php`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    return this.http.post(url, proyecto, { headers });
+    return this.http.post(url, proyecto, { headers })
+      .pipe(tap(() => this.observableService.notifyProjectUpdate()));
   }
 
   //registrarDocumentos
@@ -152,16 +104,19 @@ export class ApiService {
 
   terminado(idProyecto: number): Observable<any> {
     const url = `${this.apiUrl}/api/terminado.php`;
-
-    return this.http.post(url, { idProyecto });
+    return this.http.post(url, { idProyecto })
+      .pipe(tap(() => this.observableService.notifyProjectUpdate()));;
   }
 
   enviarCorreo(stakeholder: Stakeholder): Observable<any> {
-    const url = `${this.apiUrl}/api/enviarCorreo.php`;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.apiUrl}/api/enviarEmail.php`;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
 
-    return this.http.post(url, JSON.stringify(stakeholder), { headers });
+    return this.http.post(url, JSON.stringify(stakeholder), { headers, withCredentials: true });
   }
+
 
   registrarPagosParciales(idProyecto: number, pagosParciales: PagosParciales): Observable<any> {
     const url = `${this.apiUrl}/api/registrarPagoParcial.php`;
@@ -179,6 +134,17 @@ export class ApiService {
   getLastConsecutivo(): Observable<number> {
     const url = `${this.apiUrl}/api/getLastConsecutivo.php`;
     return this.http.get<number>(url);
+  }
+
+  registrarLider(lider: Lider): Observable<any> {
+    const url = `${this.apiUrl}/api/registrarLider.php`;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    const data = {
+      nombre: lider.nombre
+    };
+
+    return this.http.post(url, data, { headers });
   }
 
 }

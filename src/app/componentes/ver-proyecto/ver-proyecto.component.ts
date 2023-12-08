@@ -30,7 +30,9 @@ export class VerProyectoComponent implements OnInit {
     idProyecto: null
   };
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService) { }
+  constructor(private route: ActivatedRoute, private apiService: ApiService) { 
+    
+  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -46,7 +48,6 @@ export class VerProyectoComponent implements OnInit {
     this.apiService.registrarPagosParciales(idProyecto, this.nuevoPagoParcial).subscribe(
       (response) => {
         if (response && response.success) {
-          console.log('Pago agregado con éxito.');
           this.loadProyecto(this.idProyecto);
         } else {
           console.error('Error al agregar pago.');
@@ -65,7 +66,6 @@ export class VerProyectoComponent implements OnInit {
     this.apiService.agregarStakeholder(idProyecto, this.nuevoStakeholder).subscribe(
       (response) => {
         if (response && response.success) {
-          console.log('Stakeholder agregado con éxito.');
           // Enviar el correo electrónico después de agregar el stakeholder
           this.apiService.enviarCorreo(this.nuevoStakeholder).subscribe(
             (correoResponse) => {
@@ -94,7 +94,6 @@ export class VerProyectoComponent implements OnInit {
     this.apiService.getProyectoDetallado(idProyecto).subscribe(
       (verProyecto: VerProyecto) => {
         this.verProyecto = verProyecto;
-        console.log('Proyecto cargado:', verProyecto);
       },
       (error) => {
         console.error('Error al cargar proyecto:', error);
@@ -114,7 +113,6 @@ export class VerProyectoComponent implements OnInit {
   terminado(idProyecto: number): void {
     this.apiService.terminado(idProyecto).subscribe(
       (response) => {
-        console.log('Estado del proyecto actualizado correctamente', response);
         this.loadProyecto(this.idProyecto);
       },
       (error) => {
@@ -131,7 +129,6 @@ export class VerProyectoComponent implements OnInit {
     this.apiService.registrarDocumento(folio, documento).subscribe(
       (documentoResponse) => {
         if (documentoResponse && documentoResponse.success) {
-          console.log('Documento registrado con éxito.');
           this.documentoForm.reset(); // Esto limpiará el formulario del documento
           this.loadProyecto(this.idProyecto);
         } else {

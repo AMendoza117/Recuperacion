@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './componentes/dashboard/dashboard.component';
 import { RegistrarProyectoComponent } from './componentes/registrar-proyecto/registrar-proyecto.component';
 import { VerProyectoComponent } from './componentes/ver-proyecto/ver-proyecto.component';
+import { InformePDFFactory } from './factory-pattern/informe-pdf.factory';
 
 @NgModule({
   declarations: [
@@ -26,9 +27,9 @@ import { VerProyectoComponent } from './componentes/ver-proyecto/ver-proyecto.co
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [{ provide: 'InformeFactory', useClass: InformePDFFactory }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

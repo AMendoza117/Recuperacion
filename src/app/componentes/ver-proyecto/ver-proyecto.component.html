@@ -80,7 +80,7 @@
                                 <input type="file" id="pdfFile" (change)="onFileChange($event)" name="pdfFile"
                                     accept=".pdf" required>
 
-                                <button type="submit" class="btn btn-primary" [disabled]="documentoForm.invalid">Agregar
+                                <button type="submit" style="margin-left: 10px;" class="btn btn-primary" [disabled]="documentoForm.invalid">Agregar
                                     PDF</button>
                             </form>
                         </div>
@@ -118,19 +118,19 @@
                         <div>
                             <h5>Agregar Stakeholder</h5>
                             <form (ngSubmit)="agregarStakeholder()">
-                                <label for="nombreCompleto">Nombre Completo:</label>
+                                <label for="nombreCompleto" style="margin: 10px;">Nombre Completo:</label>
                                 <input type="text" id="nombreCompleto" [(ngModel)]="nuevoStakeholder.nombreCompleto"
                                     name="nombreCompleto" required>
 
-                                <label for="correoElectronico">Correo Electrónico:</label>
+                                <label for="correoElectronico" style="margin: 10px;">Correo Electrónico:</label>
                                 <input type="email" id="correoElectronico"
                                     [(ngModel)]="nuevoStakeholder.correoElectronico" name="correoElectronico" required>
 
-                                <label for="telefono">Teléfono:</label>
+                                <label for="telefono" style="margin: 10px;">Teléfono:</label>
                                 <input type="tel" id="telefono" [(ngModel)]="nuevoStakeholder.telefono" name="telefono"
                                     required>
 
-                                <button class="btn btn-primary" type="submit">Agregar Stakeholder</button>
+                                <button class="btn btn-primary" style="margin-left: 10px;" type="submit">Agregar Stakeholder</button>
                             </form>
                         </div>
                     </div>
@@ -164,14 +164,15 @@
                         <div>
                             <h5>Agregar pago</h5>
                             <form (ngSubmit)="agregarPagoParcial()">
-                                <label for="nombreCompleto">Monto:</label>
-                                <label for="fecha">Fecha:</label>
-                                <input type="date" id="fecha" [(ngModel)]="nuevoPagoParcial.fechaPago" name="fecha"
-                                    required>
+                                <label for="nombreCompleto" style="margin: 10px;">Monto:</label>
+                                
                                 <input type="number" id="monto" [(ngModel)]="nuevoPagoParcial.monto"
                                     name="nombreCompleto" required>
 
-                                <button class="btn btn-primary" type="submit">Agregar pago</button>
+                                <label for="fecha" style="margin: 10px;">Fecha:</label>
+                                <input type="date" id="fecha" [(ngModel)]="nuevoPagoParcial.fechaPago" name="fecha"
+                                    required>
+                                <button class="btn btn-primary" style="margin-left: 10px;" type="submit">Agregar pago</button>
                             </form>
                         </div>
                     </div>
