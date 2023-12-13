@@ -1,8 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiService, Proyecto, LiderConProyectos, Lider } from 'src/app/api.service';
+import { ApiService } from 'src/app/api.service';
 import { InformeFactory } from './../../factory-pattern/informe-factory.interface';
-
+import { Proyecto } from 'src/app/Models/Proyecto.model';
+import { LiderConProyectos } from 'src/app/Models/liderConProyectos.model';
+import { Lider } from 'src/app/Models/Lider.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -92,3 +94,5 @@ export class DashboardComponent implements OnInit {
   }
 
 }
+
+
