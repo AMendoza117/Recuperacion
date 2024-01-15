@@ -1,8 +1,11 @@
 // ver-proyecto.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService, VerProyecto, Stakeholder, PagosParciales } from 'src/app/api.service';
+import { ApiService } from 'src/app/api.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { VerProyecto } from 'src/app/Models/VerProyecto.model';
+import { Stakeholder } from 'src/app/Models/Stakeholder.model';
+import { PagosParciales } from 'src/app/Models/PagosParciales.model';
 
 @Component({
   selector: 'app-ver-proyecto',

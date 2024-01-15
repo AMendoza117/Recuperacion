@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/api.service';
-import { InformeFactory } from './../../factory-pattern/informe-factory.interface';
 import { Proyecto } from 'src/app/Models/Proyecto.model';
 import { LiderConProyectos } from 'src/app/Models/liderConProyectos.model';
 import { Lider } from 'src/app/Models/Lider.model';
@@ -22,7 +21,7 @@ export class DashboardComponent implements OnInit {
     nombre: ''
   };
 
-  constructor(@Inject('InformeFactory') private informeFactory: InformeFactory, private apiService: ApiService, private router: Router) { }
+  constructor(private apiService: ApiService, private router: Router) { }
 
   ngOnInit(): void {
     this.update();
@@ -39,10 +38,6 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/registrar-proyecto']);
   }
 
-  generarInforme(): void {
-    const informe = this.informeFactory.crearInforme();
-    informe.generarInforme();
-  }
 
   loadProyectos() {
     this.apiService.loadProyectos().subscribe(

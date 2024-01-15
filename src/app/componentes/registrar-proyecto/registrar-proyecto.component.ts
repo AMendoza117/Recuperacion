@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { ApiService, Responsable } from './../../api.service';
-
+import { ApiService } from './../../api.service';
+import { Responsable } from 'src/app/Models/responsable.model';
 @Component({
   selector: 'app-registrar-proyecto',
   templateUrl: './registrar-proyecto.component.html',

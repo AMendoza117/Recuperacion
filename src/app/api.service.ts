@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { ObservableService } from './services/observable.service';
 import { Responsable } from './Models/responsable.model';
 import { LiderConProyectos } from './Models/liderConProyectos.model';
 import { Proyecto } from './Models/Proyecto.model';
@@ -17,7 +16,7 @@ import { PagosParciales } from './Models/PagosParciales.model';
 export class ApiService {
   private apiUrl = 'http://localhost:8080';
 
-  constructor(private http: HttpClient, private observableService: ObservableService) { }
+  constructor(private http: HttpClient, private httpClient: HttpClient) { }
 
   // Método para realizar una solicitud GET a una API en el backend.
   public get(endpoint: string): Observable<any> {
@@ -52,8 +51,7 @@ export class ApiService {
     const url = `${this.apiUrl}/api/registrarProyecto.php`;
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    return this.http.post(url, proyecto, { headers })
-      .pipe(tap(() => this.observableService.notifyProjectUpdate()));
+    return this.http.post(url, proyecto, { headers });
   }
 
   //registrarDocumentos
@@ -104,8 +102,7 @@ export class ApiService {
 
   terminado(idProyecto: number): Observable<any> {
     const url = `${this.apiUrl}/api/terminado.php`;
-    return this.http.post(url, { idProyecto })
-      .pipe(tap(() => this.observableService.notifyProjectUpdate()));;
+    return this.http.post(url, { idProyecto });
   }
 
   enviarCorreo(stakeholder: Stakeholder): Observable<any> {
@@ -115,6 +112,16 @@ export class ApiService {
     });
 
     return this.http.post(url, JSON.stringify(stakeholder), { headers, withCredentials: true });
+  }
+
+  sendEmailSupport(firstName:string, lastName:string, subject:string, replyTo:string, message: string){
+    return this.httpClient.post(`${this.apiUrl}/api/enviarEmail.php`, {
+      firstName: firstName,  
+      lastName: lastName,
+      subject: subject,
+      replyTo: replyTo,
+      message: message
+    });
   }
 
 
@@ -147,4 +154,12 @@ export class ApiService {
     return this.http.post(url, data, { headers });
   }
 
+  login(username: string, password: string): Observable<any> {
+    const credentials = { username, password };
+
+    const url = `${this.apiUrl}/api/login.php`; 
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post(url, credentials, { headers });
+  }
 }

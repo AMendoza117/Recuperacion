@@ -1,9 +1,4 @@
 <?php
-header("Content-Type: application/json");
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET");
-header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-
 // Incluir el archivo de conexión a la base de datos
 include 'database.php';
 
@@ -53,8 +48,8 @@ if ($resultadoProyectoDetallado) {
     }
 
     // Consulta para obtener los Stakeholders relacionados con el proyecto
-    $consultaStakeholders = "SELECT * FROM Stakeholders s
-                             WHERE s.idProyecto = $idProyecto";
+    $consultaStakeholders = "SELECT * FROM Stakeholders
+                             WHERE idProyecto = $idProyecto";
     $resultadoStakeholders = mysqli_query($con, $consultaStakeholders);
 
     if ($resultadoStakeholders) {
@@ -71,6 +66,12 @@ if ($resultadoProyectoDetallado) {
         $verProyecto["stakeholders"] = $stakeholders;
     } else {
         echo json_encode(['error' => 'Error al obtener los Stakeholders desde la base de datos.']);
+        $response = [
+            'success' => false,
+            'error' => 'Error al insertar el usuario',
+            'error_details' => mysqli_error($con)
+        ];
+        echo json_encode($response);
         exit;
     }
 
@@ -100,7 +101,12 @@ if ($resultadoProyectoDetallado) {
     echo json_encode($verProyecto);
 } else {
     echo json_encode(['error' => 'Error al obtener el proyecto desde la base de datos.']);
+    $response = [
+        'success' => false,
+        'error' => 'Error al insertar el usuario',
+        'error_details' => mysqli_error($con)
+    ];
+    echo json_encode($response);
 }
 
 mysqli_close($con);
-?>

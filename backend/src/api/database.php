@@ -6,10 +6,10 @@ header("Access-Control-Max-Age: 3600");
 header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token, Access-Control-Allow-Headers, Authorization, X-Requested-With');
 
 //PRODUCCION
-define('DB_HOST', 'bowrpzwozxfm640l38z3-mysql.services.clever-cloud.com'); 
-define('DB_USER', 'uqrmzwjbqssh0kdo');
-define('DB_PASS', 'L0YXbWNRdBO1CeryCWt8');
-define('DB_NAME', 'bowrpzwozxfm640l38z3');
+define('DB_HOST', 'b5gpr0dt5vig4v4fuchq-mysql.services.clever-cloud.com'); 
+define('DB_USER', 'urgmhrwzu9dh2rmv');
+define('DB_PASS', '6mENK3R0vqeFDMimZVXw');
+define('DB_NAME', 'b5gpr0dt5vig4v4fuchq');
 
 function connect()
 {

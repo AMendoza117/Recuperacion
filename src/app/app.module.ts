@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './componentes/dashboard/dashboard.component';
 import { RegistrarProyectoComponent } from './componentes/registrar-proyecto/registrar-proyecto.component';
 import { VerProyectoComponent } from './componentes/ver-proyecto/ver-proyecto.component';
-import { InformePDFFactory } from './factory-pattern/informe-pdf.factory';
+import { LoginComponent } from './componentes/login/login.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +20,7 @@ import { InformePDFFactory } from './factory-pattern/informe-pdf.factory';
     DashboardComponent,
     RegistrarProyectoComponent,
     VerProyectoComponent,
+    LoginComponent,
     
   ],
   imports: [
@@ -29,7 +30,7 @@ import { InformePDFFactory } from './factory-pattern/informe-pdf.factory';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [{ provide: 'InformeFactory', useClass: InformePDFFactory }],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
