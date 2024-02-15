@@ -12,7 +12,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   username: string = '';
   password: string = '';
-  applyLoginStyles: boolean = true; 
+  applyLoginStyles: boolean = true;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private authService: AuthService) { }
 
@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
         console.log('Error de inicio de sesión');
       }
     });
-    
+
   }
 
 }
