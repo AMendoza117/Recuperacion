@@ -10,9 +10,30 @@
           </div>
 
           <div class="remember-forgot">
-              <label><input type="checkbox">Recuérdame</label>
-              <a href="#">Problemas con la contraseña</a>
-          </div>
+            <label><input type="checkbox">Recuérdame</label>
+            <a (click)="showRecoveryCard()">Problemas con la contraseña</a>
+        </div>
+        
+        <!-- Modal de recuperación de contraseña -->
+        <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': recoveryModalVisible}">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Recuperación de Contraseña</h5>
+                        <button type="button" class="close" aria-label="Close" (click)="hideRecoveryCard()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Contenido del modal (tarjeta de recuperación de contraseña) -->
+                        <p>Por favor ingrese su correo electrónico para recuperar su contraseña:</p>
+                        <input id="emailInput" type="email" class="form-control mb-2" placeholder="Correo Electrónico">
+                        <button type="button" class="btn btn-primary" (click)="submitRecoveryRequest()">Enviar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
           <button type="submit" class="btn">Login</button>
 
           <div class="register-link">

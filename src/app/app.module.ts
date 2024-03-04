@@ -12,6 +12,7 @@ import { RegistrarProyectoComponent } from './componentes/registrar-proyecto/reg
 import { VerProyectoComponent } from './componentes/ver-proyecto/ver-proyecto.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { InicioComponent } from './componentes/inicio/inicio.component';
+import { RecuperarContrasenaComponent } from './componentes/recuperar-contrasena/recuperar-contrasena.component'; 
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { InicioComponent } from './componentes/inicio/inicio.component';
     VerProyectoComponent,
     LoginComponent,
     InicioComponent,
-    
+    RecuperarContrasenaComponent,
   ],
   imports: [
     BrowserModule,

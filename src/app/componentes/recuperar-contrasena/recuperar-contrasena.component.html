@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contaseña</title>
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/wow.min.js"></script>
+
+
+</head>
+<body>
+    <!-- Botón para abrir el modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#passwordRecoveryModal">
+    Recuperar Contraseña
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="passwordRecoveryModal" tabindex="-1" role="dialog" aria-labelledby="passwordRecoveryModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="passwordRecoveryModalLabel">Recuperación de Contraseña</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Contenido del modal -->
+          <p>Por favor ingrese su correo electrónico para recuperar su contraseña:</p>
+          <input type="email" class="form-control" placeholder="Correo Electrónico">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary">Enviar</button>
+        </div>
+      </div>
+    </div>
+  </div>  
+</body>
+</html>

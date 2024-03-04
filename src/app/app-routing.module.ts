@@ -5,6 +5,7 @@ import { RegistrarProyectoComponent } from './componentes/registrar-proyecto/reg
 import { VerProyectoComponent } from './componentes/ver-proyecto/ver-proyecto.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { InicioComponent } from './componentes/inicio/inicio.component';
+import { RecuperarContrasenaComponent } from './componentes/recuperar-contrasena/recuperar-contrasena.component'; 
 
 const routes: Routes = [
   {path: '',redirectTo:'inicio', pathMatch: 'full'},
@@ -12,7 +13,8 @@ const routes: Routes = [
   {path: 'registrar-proyecto',component:RegistrarProyectoComponent},
   {path: 'ver-proyecto/:id',component:VerProyectoComponent},
   {path: 'login', component:LoginComponent},
-  {path: 'inicio', component:InicioComponent}
+  {path: 'inicio', component:InicioComponent},
+  {path: 'recuperar-contrasena', component:RecuperarContrasenaComponent}
 ];
 
 @NgModule({
