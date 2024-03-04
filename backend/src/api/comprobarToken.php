@@ -8,7 +8,7 @@ $token = $request->token;
 $password = $request->password;
 
 // Consulta para verificar si el token coincide en la tabla de usuarios
-$consulta1 = "SELECT token FROM usuario WHERE token = '$token'";
+$consulta1 = "SELECT token FROM usuarios WHERE token = '$token'";
 $resultado1 = mysqli_query($con, $consulta1);
 
 if (!$resultado1) {
@@ -16,10 +16,12 @@ if (!$resultado1) {
     exit; // Terminar la ejecución si hay un error en la consulta
 }
 
+$hashed_password = hash('sha256', $password);
+
 // Verificar si se encontró un token correspondiente
 if (mysqli_num_rows($resultado1) == 1) {
     // Actualizar el campo password en la tabla de usuarios
-    $consulta2 = "UPDATE usuario SET password = '$password' WHERE token = '$token'";
+    $consulta2 = "UPDATE usuarios SET password = '$hashed_password' WHERE token = '$token'";
     if (mysqli_query($con, $consulta2)) {
         echo json_encode(['success' => true]);
     } else {
