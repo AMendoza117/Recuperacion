@@ -1,0 +1,24 @@
+<div *ngIf="!showChat" class="chat-toggle" (click)="toggleChat()">
+  <img src="../../../assets/img/icons/mapa-del-sitio.png" alt="MapaDelSitio" style="height: 50px; width: 100%;">
+</div>
+
+<div class="chat-container" *ngIf="showChat">
+  <div class="chat-header">
+    <h1>Mapa del Sitio</h1>
+    <button class="close-button" (click)="toggleChat()">X</button>
+  </div>
+  <div class="chat-messages">
+    <ul>
+      <li><a href="/">Inicio</a></li>
+      <li><a href="/productos">Productos</a>
+        <ul>
+          <li><a href="/productos/categoria1">Categoría 1</a></li>
+          <li><a href="/productos/categoria2">Categoría 2</a></li>
+          <li><a href="/productos/categoria3">Categoría 3</a></li>
+        </ul>
+      </li>
+      <li><a href="/acerca-de">Acerca de Nosotros</a></li>
+      <li><a href="/contacto">Contacto</a></li>
+    </ul>
+  </div>
+</div>

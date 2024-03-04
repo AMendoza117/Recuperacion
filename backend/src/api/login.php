@@ -63,7 +63,7 @@ $consulta->execute();
 $consulta->store_result();
 
 if ($consulta->num_rows > 0) {
-    $consulta->bind_result($id, $username, $password, $nombre, $apellidos, $role);
+    $consulta->bind_result($id, $username, $password, $nombre, $apellidos, $role, $token);
     $consulta->fetch();
 
     // Hash SHA-256 de la contraseña proporcionada en la solicitud
