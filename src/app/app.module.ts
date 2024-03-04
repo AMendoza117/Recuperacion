@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +13,11 @@ import { RegistrarProyectoComponent } from './componentes/registrar-proyecto/reg
 import { VerProyectoComponent } from './componentes/ver-proyecto/ver-proyecto.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { InicioComponent } from './componentes/inicio/inicio.component';
+import { RCComponent } from './componentes/rc/rc.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { ToastrModule } from 'ngx-toastr';
+import { Error404Component } from './componentes/pantallaDeError/error404/error404.component';
+import { Error403Component } from './componentes/pantallaDeError/error403/error403.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +29,10 @@ import { InicioComponent } from './componentes/inicio/inicio.component';
     VerProyectoComponent,
     LoginComponent,
     InicioComponent,
-    
+    RCComponent,
+    Error404Component,
+    Error403Component
+
   ],
   imports: [
     BrowserModule,
@@ -31,6 +40,9 @@ import { InicioComponent } from './componentes/inicio/inicio.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    ModalModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
